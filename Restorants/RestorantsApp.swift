@@ -12,6 +12,7 @@ struct RestorantsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.colorScheme, .light)
         }
     }
 }
