@@ -18,7 +18,8 @@ struct ContentView: View {
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State var isLoginSegmentSelected: Bool = true
-    
+    @State private var showingAlert = false
+
     var body: some View {
         NavigationView {
             
@@ -39,16 +40,18 @@ struct ContentView: View {
                         PasswordFieldView(placeholder: "Password")
                         PasswordFieldView(placeholder: "Confirm password")
                             .isHidden(isLoginSegmentSelected, remove: isLoginSegmentSelected)
-                        
+                        let buttonText = isLoginSegmentSelected ? "SIGN IN" : "SIGN UP"
                         Button(action: {
-                            print("Sign in")
+                            showingAlert = true
                         }) {
-                            Text("SIGN IN")
+                            Text(buttonText)
                                 .fontWeight(.regular)
                                 .font(.body)
                                 .foregroundColor(Color.black)
                         }.buttonStyle(GradientBackgroundStyle())
-                        
+                        .alert(isPresented: $showingAlert) {
+                            Alert(title: Text(buttonText), dismissButton: .default(Text("Got it!")))
+                        }
                         Button(action: {
                             print("Forgot Password...")
                         }) {
